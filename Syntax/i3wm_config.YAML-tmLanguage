@@ -1,0 +1,149 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+name: i3-wm Config
+scopeName: source.i3wm_config
+fileTypes: [i3/config, config]
+uuid: bb9ebd33-1b88-4310-acef-41720bcac38f
+
+patterns:
+- name: comment
+  match: (?:^ *|\G *)((#).*)
+  captures:
+    '1': {name: comment}
+    '2': {name: comment.source.i3wm_config}
+
+- name: set
+  match: (?:^ *|\G *)(set)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: ipc_socket
+  match: (?:^ *|\G *)(ipc-socket)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: position
+  match: (?:^ *|\G *)(position)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: status_command
+  match: (?:^ *|\G *)(status_command)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: tray_output
+  match: (?:^ *|\G *)(tray_output)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: background
+  match: (?:^ *|\G *)(background)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: focused_workspace
+  match: (?:^ *|\G *)(focused_workspace)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: active_workspace
+  match: (?:^ *|\G *)(active_workspace)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: inactive_workspace
+  match: (?:^ *|\G *)(inactive_workspace)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: statusline
+  match: (?:^ *|\G *)(statusline)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: exec
+  match: (?:^ *|\G *)(exec)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: font_pango
+  match: (?:^ *|\G *)(font\ pango\:)\s*([ \w]*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: bind
+  match: (?:^ *|\G *)(bindsym|bindcode)\s*(.*)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+
+- name: font
+  match: (?:^ *|\G *)(font)\s*([-\w]*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: force_xinerama
+  match: (?:^ *|\G *)(force_xinerama)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: floating_modifier
+  match: (?:^ *|\G *)(floating_modifier)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: client_focused
+  match: (?:^ *|\G *)(client\.focused)\s*(.*)\s*(.*)\s*(.*)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+    '4': {name: constant.string.i3wm_config}
+    '5': {name: constant.string.i3wm_config}
+
+- name: client_focused_inactive
+  match: (?:^ *|\G *)(client\.focused_inactive)\s*(.*)\s*(.*)\s*(.*)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+    '4': {name: constant.string.i3wm_config}
+    '5': {name: constant.string.i3wm_config}
+
+- name: client_unfocused
+  match: (?:^ *|\G *)(client\.unfocused)\s*(.*)\s*(.*)\s*(.*)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+    '4': {name: constant.string.i3wm_config}
+    '5': {name: constant.string.i3wm_config}
+
+- name: bar
+  match: (?:^ *|\G *)(bar)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+- name: colors
+  match: (?:^ *|\G *)(colors)\s*(.*)
+  captures:
+    '1': {name: keyword.source.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
