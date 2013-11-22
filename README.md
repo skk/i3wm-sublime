@@ -1,5 +1,5 @@
 
-i3 wm Syntax Highlighting for Sublime Text 2/3
+[i3 wm]  Syntax Highlighting for Sublime Text 2/3
 ===========================
 
 Installation
@@ -29,3 +29,6 @@ Next on my list is adding support for i3wm's status bar config file.
 Contact
 ----------
 email: steven@knight.cx
+
+
+[i3 wm]: http://i3wm.org/ "i3 wm Home Page"
