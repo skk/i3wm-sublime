@@ -1,149 +1,317 @@
-# [PackageDev] target_format: plist, ext: tmLanguage
+
 name: i3-wm Config
+author: skk
 scopeName: source.i3wm_config
 fileTypes: [i3/config, config]
 uuid: bb9ebd33-1b88-4310-acef-41720bcac38f
 
+# <color>  ---> #rrggbb
+# <path>   ---> path_to_file
+
 patterns:
 - name: comment
-  match: (?:^ *|\G *)((#).*)
+  match: ((#).*)
   captures:
     '1': {name: comment}
     '2': {name: comment.source.i3wm_config}
 
+# set $mod Mod4
 - name: set
-  match: (?:^ *|\G *)(set)\s*(.*)
+  match: (set)\s*(\$\w*)\s*(\w*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: meta.scope.variable.other.i3wm_config}
+    '3': {name: constant.language.i3wm_config}
 
+# ipc-socket <path>
 - name: ipc_socket
-  match: (?:^ *|\G *)(ipc-socket)\s*(.*)
+  match: (ipc-socket)\s*(.*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
 
+# reload
+- name: reload
+  match: (reload)\s*(.*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+# restart
+- name: restart
+  match: (restart)\s*(.*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+# focus <left|right|down|up>
+# focus <parent|child|floating|tiling|mode_toggle>
+# focus output <<left|right|down|up>|output>
+# - name: focus
+#   match: (focus)\s*(.*)
+#   captures:
+#     '1': {name: keyword.other.i3wm_config}
+#     '2': {name: constant.string.i3wm_config}
+
+# move <left|right|down|up> [<px> px]
+# move [absolute] position [[<px> px] [<px> px]|center]
+# - name: move
+#   match: (move)\s*(.*)
+#   captures:
+#     '1': {name: keyword.other.i3wm_config}
+#     '2': {name: constant.string.i3wm_config}
+
+# layout <default|tabbed|stacking|splitv|splith>
+- name: layout
+  match: (layout)\s*(default|tabbed|stacking|split v|split h)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+
+# layout toggle [split|all]
+- name: layout_toggle
+  match: (layout toggle)\s*(split|all)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+
+#split <vertical|horizontal|v|h>
+- name: split
+  match: (split)\s*(vertical|horizontal|v|h)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+
+# rename workspace <old_name> to <new_name>
+# rename workspace to <new_name>
+- name: rename_workspace
+  match: (rename workspace)\s*(\w*)\s*(to)\s*(\w*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+    '3': {name: keyword.other.i3wm_config}
+    '4': {name: constant.language.i3wm_config}
+    '5': {name: constant.language.i3wm_config}
+
+# workspace <next|prev|next_on_output|prev_on_output>
+# workspace back_and_forth
+# workspace <name>
+# workspace number <name>
+- name: workspace
+  match: (workspace)\s*(next|prev|next_on_output|prev_on_output|back_and_forth|(?:\w)*|(?:\d*\s*\w*))
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+
+# NOTE: move__container_or_workspace needs to be defined before move_workspace.
+# It needs to be defined first, so that Sublime match 'move workspace to output'
+# correctly.  If its defined second, the 'output' won't be highlighted currently
+# move container to output <<left|right|down|up>|<output>>
+# move workspace to output <<left|right|down|up>|<output>>
+- name: move__container_or_workspace
+  match: (move)\s*(workspace|container)\s*(to)\s*(output)\s*(left|right|down|up|[\w]*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: keyword.other.i3wm_config}
+    '3': {name: keyword.other.i3wm_config}
+    '4': {name: keyword.other.i3wm_config}
+    '5': {name: constant.language.i3wm_config}
+
+# move workspace <next|prev|next_on_output|prev_on_output>
+# move workspace back_and_forth
+# move workspace <name>
+# move workspace number <name>
+- name: move_workspace
+  match: (move)\s*(workspace)\s*(next|prev|next_on_output|prev_on_output|back_and_forth|(?:\w)*|(?:\d*\s*\w*))
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: keyword.other.i3wm_config}
+    '3': {name: constant.language.i3wm_config}
+
+# move [window|container] [to] workspace <name>
+# move [window|container] [to] workspace number <name>
+# move [window|container] [to] workspace <prev|next|current>
+- name: move__window_or_container
+  match: (move)\s*(window|container)\s*(to)?
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: keyword.other.i3wm_config}
+    '3': {name: keyword.other.i3wm_config}
+
+# move scratchpad
+- name: move_scratchpad
+  match: (move)\s*(scratchpad)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: keyword.other.i3wm_config}
+
+# scratchpad show
+- name: scratchpad_show
+  match: (scratchpad)\s*(show)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: keyword.other.i3wm_config}
+
+# Bar Section
+#
+
+- name: bar
+  match: (?:^ *|\G *)(bar)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+
+# position bottom|top
 - name: position
-  match: (?:^ *|\G *)(position)\s*(.*)
+  match: (position)\s*(.*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
 
+# status_command i3status --config ~/.i3/i3status.conf
 - name: status_command
-  match: (?:^ *|\G *)(status_command)\s*(.*)
+  match: (status_command)\s*(.*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
 
+# tray_output primary
 - name: tray_output
-  match: (?:^ *|\G *)(tray_output)\s*(.*)
+  match: (tray_output)\s*(\w*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
 
+# background <color>
 - name: background
-  match: (?:^ *|\G *)(background)\s*(.*)
+  match: (background)\s*(#\w{6})
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
 
+# focused_workspace <color> <color> <color>
 - name: focused_workspace
-  match: (?:^ *|\G *)(focused_workspace)\s*(.*)
+  match: (focused_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
-- name: active_workspace
-  match: (?:^ *|\G *)(active_workspace)\s*(.*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
-- name: inactive_workspace
-  match: (?:^ *|\G *)(inactive_workspace)\s*(.*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
-- name: statusline
-  match: (?:^ *|\G *)(statusline)\s*(.*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
-- name: exec
-  match: (?:^ *|\G *)(exec)\s*(.*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
-- name: font_pango
-  match: (?:^ *|\G *)(font\ pango\:)\s*([ \w]*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
-- name: bind
-  match: (?:^ *|\G *)(bindsym|bindcode)\s*(.*)\s*(.*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
     '3': {name: constant.string.i3wm_config}
+    '4': {name: constant.string.i3wm_config}
+    '5': {name: constant.string.i3wm_config}
+
+# active_workspace <color> <color> <color>
+- name: active_workspace
+  match: (active_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+    '4': {name: constant.string.i3wm_config}
+    '5': {name: constant.string.i3wm_config}
+
+# inactive_workspace <color> <color> <color>
+- name: inactive_workspace
+  match: (inactive_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+    '4': {name: constant.string.i3wm_config}
+    '5': {name: constant.string.i3wm_config}
+
+# statusline <color>
+- name: statusline
+  match: (statusline)\s*(#\w{6})
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+
+# exec [--no-startup-id] command
+- name: exec
+  match: (exec)\s*(\-\-no-startup-id)?\s*(.*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+    '3': {name: constant.string.i3wm_config}
+
+- name: font_pango
+  match: (font\ pango\:)\s*([ \w]*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
 
 - name: font
-  match: (?:^ *|\G *)(font)\s*([-\w]*)
+  match: (font)\s*([-\w]*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
 
+# force_xinerama <yes|no>
 - name: force_xinerama
-  match: (?:^ *|\G *)(force_xinerama)\s*(.*)
+  match: (force_xinerama)\s*(no|yes)
   captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
 
+# floating_modifier <Modifiers>
 - name: floating_modifier
-  match: (?:^ *|\G *)(floating_modifier)\s*(.*)
+  match: (floating_modifier)\s*(\$\w*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: meta.scope.variable.other.i3wm_config}
 
 - name: client_focused
-  match: (?:^ *|\G *)(client\.focused)\s*(.*)\s*(.*)\s*(.*)\s*(.*)
+  match: (client.focused)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
     '3': {name: constant.string.i3wm_config}
     '4': {name: constant.string.i3wm_config}
     '5': {name: constant.string.i3wm_config}
 
 - name: client_focused_inactive
-  match: (?:^ *|\G *)(client\.focused_inactive)\s*(.*)\s*(.*)\s*(.*)\s*(.*)
+  match: (client\.focused\_inactive)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
     '3': {name: constant.string.i3wm_config}
     '4': {name: constant.string.i3wm_config}
     '5': {name: constant.string.i3wm_config}
 
 - name: client_unfocused
-  match: (?:^ *|\G *)(client\.unfocused)\s*(.*)\s*(.*)\s*(.*)\s*(.*)
+  match: (client\.unfocused)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
-    '1': {name: keyword.source.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.string.i3wm_config}
     '3': {name: constant.string.i3wm_config}
     '4': {name: constant.string.i3wm_config}
     '5': {name: constant.string.i3wm_config}
 
-- name: bar
-  match: (?:^ *|\G *)(bar)\s*(.*)
-  captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-
+# colors {
+#         background #073642
+#         statusline #eee8d5
+#         focused_workspace #cb4b16 #cb4b16 #eee8d5
+#         active_workspace #cb4b16 #cb4b16 #eee8d5
+#         inactive_workspace #b58900 #b58900 #eee8d5
+#     }
 - name: colors
-  match: (?:^ *|\G *)(colors)\s*(.*)
+  match: (colors)\s*(.*)
   captures:
-    '1': {name: keyword.source.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: meta.scope.block.i3wm_config}
+
+# bindcode 214 exec --no-startup-id /home/michael/toggle_beamer.sh
+- name: bindcode
+  match: (bindcode)\s*(--release)?\s*(\d*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+    '3': {name: constant.numeric.i3wm_config}
+
+# bindsym $mod+1 workspace 1
+- name: bindsym
+  match: (bindsym)\s*(--release)?\s*([$\w\+]*)
+  captures:
+    '1': {name: keyword.other.i3wm_config}
+    '2': {name: constant.language.i3wm_config}
+    '3': {name: meta.scope.variable.other.i3wm_config}
 
