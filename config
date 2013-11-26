@@ -1,4 +1,4 @@
-# Chapter 4
+# Chapter 4, Configuring i3
 
 # Section 4.1, Comments
 # Examples:
@@ -39,6 +39,7 @@ bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
 # floating_modifier <Modifiers>
 # Example:
 floating_modifier Mod1
+floating_modifier $m
 
 # 4.5. Constraining floating window size
 # Syntax:
@@ -51,7 +52,7 @@ floating_maximum_size -1 x -1
 # 4.6. Orientation for new workspaces
 #Syntax:
 #default_orientation <horizontal|vertical|auto>
-Example:
+#Example:
 default_orientation vertical
 
 #4.7. Layout mode for new containers
@@ -207,8 +208,8 @@ bar {
 #Example:
 bar {
     mode hide
-    hidden_state hide
     modifier Mod1
+    hidden_state hide
 }
 
 #5.4. Bar ID
@@ -313,8 +314,7 @@ bar {
     }
 }
 
-#6. List of commands
-#On to Chapter 6.
+# Chapter 6, List of commands
 # command chaining using ;
 #bindsym $mod+x move container to workspace 3; workspace 3
 # scope of command changes using square brackets
@@ -383,8 +383,15 @@ bindsym $mod+j move left
 bindsym $mod+k move down
 bindsym $mod+l move up
 bindsym $mod+semicolon move right
-bindsym $mod+j move left 20 px
+bindsym $mod+j move left 20 px 10 px
+bindsym $mod+j move left 20 px 10 px
 bindsym $mod+c move absolute position center
+bindsym $mod+c move absolute position 10 px
+bindsym $mod+c move absolute position 10 px 10 px
+bindsym $mod+c move absolute position 10 px
+bindsym $mod+c move absolute position 10 px 20 px
+bindsym $mod+c move absolute position 10 px 20 px center
+bindsym $mod+c move absolute position 10 px 30 px 30 px 40 px
 
 #6.5. Changing (named) workspaces/moving to workspaces
 #Syntax:
@@ -418,11 +425,10 @@ bindsym $mod+2 workspace 2: www
 #rename workspace <old_name> to <new_name>
 #rename workspace to <new_name>
 #Examples:
-i3-msg 'rename workspace 5 to 6'
-i3-msg 'rename workspace 1 to "1: www"'
-i3-msg 'rename workspace "1: www" to "10: www"'
-i3-msg 'rename workspace to "2: mail"
-bindsym $mod+r exec i3-input -F 'rename workspace to %s' -P 'New name: '
+rename workspace 5 to 6
+rename workspace 1 to 1: www
+rename workspace 1: www to 10: www
+workspace to 2: mail
 
 #6.6. Moving workspaces to a different screen
 # see section 6.7
@@ -469,6 +475,8 @@ bindsym $mod+r mode "resize"
 #[class="class"] focus
 #[title="title"] focus
 #Examples:
+bindsym $mod+a [title="VIM"] focus
+bindsym $mod+a [class="urxvt"] focus
 bindsym $mod+a [class="urxvt" title="VIM"] focus
 
 #6.10. VIM-like marks (mark/goto)
