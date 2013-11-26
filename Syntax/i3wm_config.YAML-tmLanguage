@@ -5,12 +5,14 @@ scopeName: source.i3wm_config
 fileTypes: [i3/config, config]
 uuid: bb9ebd33-1b88-4310-acef-41720bcac38f
 
-# <color>  ---> #rrggbb
-# <path>   ---> path_to_file
-
-# Chapter 4, Configuring i3
 
 patterns:
+- name: criteria
+  match: \[(.*)\]
+  captures:
+    '1': {name: constant.string.i3wm_config}
+
+# Chapter 4, Configuring i3
 - name: comment
   match: ((#).*)
   captures:
@@ -550,13 +552,10 @@ patterns:
     '1': {name: keyword.other.i3wm_config}
     '2': {name: constant.stirng.i3wm_config}
 
-#[class="class"] focus
-#[title="title"] focus
 - name: focus
-  match: \[(.*)\]\s*(focus) 
+  match: (focus)
   captures:
-    '1': {name: constant.string.i3wm_config}
-    '2': {name: keyword.other.i3wm_config}
+    '1': {name: keyword.other.i3wm_config}
 
 - name: mark_identifier
   match: (unmark|mark)\s*(.*)

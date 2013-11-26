@@ -19,6 +19,20 @@
     <array>
       <dict>
         <key>name</key>
+        <string>criteria</string>
+        <key>match</key>
+        <string>\[(.*)\]</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>constant.string.i3wm_config</string>
+          </dict>
+        </dict>
+      </dict>
+      <dict>
+        <key>name</key>
         <string>comment</string>
         <key>match</key>
         <string>((#).*)</string>
@@ -1576,15 +1590,10 @@
         <key>name</key>
         <string>focus</string>
         <key>match</key>
-        <string>\[(.*)\]\s*(focus)</string>
+        <string>(focus)</string>
         <key>captures</key>
         <dict>
           <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>constant.string.i3wm_config</string>
-          </dict>
-          <key>2</key>
           <dict>
             <key>name</key>
             <string>keyword.other.i3wm_config</string>
