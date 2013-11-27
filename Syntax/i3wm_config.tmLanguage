@@ -312,7 +312,7 @@
         <key>name</key>
         <string>assign</string>
         <key>match</key>
-        <string>(assign)\s*\[(\w*)=(.*)\]\s*(→)?\s*([\w\d]*)</string>
+        <string>(assign)\s*\[(.*)]\s*(→)?\s*([\w\d]*)</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -323,19 +323,14 @@
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>constant.language.i3wm_config</string>
+            <string>constant.string.i3wm_config</string>
           </dict>
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>constant.string.i3wm_config</string>
-          </dict>
-          <key>4</key>
-          <dict>
-            <key>name</key>
             <string>keyword.operator.i3wm_config</string>
           </dict>
-          <key>5</key>
+          <key>4</key>
           <dict>
             <key>name</key>
             <string>constant.language.i3wm_config</string>

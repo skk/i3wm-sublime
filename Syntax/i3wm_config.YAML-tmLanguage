@@ -107,17 +107,14 @@ patterns:
     '2': {name: meta.scope.variable.other.i3wm_config}
     '3': {name: constant.language.i3wm_config}
 
-# [fix] - Multiple criteria isn't parsing correctly
-
 #assign <criteria> command
 - name: assign
-  match: (assign)\s*\[(\w*)=(.*)\]\s*(→)?\s*([\w\d]*)
+  match: (assign)\s*\[(.*)]\s*(→)?\s*([\w\d]*)
   captures:
     '1': {name: keyword.other.i3wm_config}
-    '2': {name: constant.language.i3wm_config}
-    '3': {name: constant.string.i3wm_config}
-    '4': {name: keyword.operator.i3wm_config}
-    '5': {name: constant.language.i3wm_config}
+    '2': {name: constant.string.i3wm_config}
+    '3': {name: keyword.operator.i3wm_config}
+    '4': {name: constant.language.i3wm_config}
 
 # exec_always [--no-startup-id] command
 - name: exec_always
