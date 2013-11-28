@@ -1,0 +1,538 @@
+# Chapter 4, Configuring i3
+
+# Section 4.1, Comments
+# Examples:
+# This is a comment
+
+# Section 4.2, Fonts
+# Syntax
+# font <X core font description>
+# font pango:[family list] [style options] [size]
+# Examples
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
+font pango:Terminus 11px
+
+# Section 4.3, Keyboard Bindings
+# Syntax
+# bindsym [--release] [Modifiers+]keysym command
+# bindcode [--release] [Modifiers+]keycode command
+
+# Fullscreen
+bindsym $mod+f fullscreen
+
+# Restart
+bindsym $mod+Shift+r restart
+
+# Notebook-specific hotkeys
+bindcode 214 exec --no-startup-id /home/michael/toggle_beamer.sh
+
+# Simulate ctrl+v upon pressing $mod+x
+bindsym --release $mod+x exec xdotool key --clearmodifiers ctrl+v
+
+# Take a screenshot upon pressing $mod+x (select an area)
+bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+
+# 4.4, Floating modifier
+# Syntax:
+# floating_modifier <Modifiers>
+# Example:
+floating_modifier Mod1
+floating_modifier $m
+
+# 4.5. Constraining floating window size
+# Syntax:
+# floating_minimum_size <width> x <height>
+# floating_maximum_size <width> x <height>
+# Example:
+floating_minimum_size 75 x 50
+floating_maximum_size -1 x -1
+
+# 4.6. Orientation for new workspaces
+#Syntax:
+#default_orientation <horizontal|vertical|auto>
+#Example:
+default_orientation vertical
+
+#4.7. Layout mode for new containers
+#Syntax:
+#workspace_layout <default|stacking|tabbed>
+#Example:
+workspace_layout tabbed
+
+#4.8. Border style for new windows
+#Syntax:
+#new_window <normal|1pixel|none|pixel>
+#new_float <normal|1pixel|none|pixel>
+#Example:
+new_window 1pixel
+new_float 1pixel
+new_float none
+new_window pixel 3
+
+#4.9. Hiding vertical borders
+#Syntax:
+#hide_edge_borders <none|vertical|horizontal|both>
+#Example:
+hide_edge_borders vertical
+
+#4.10. Arbitrary commands for specific windows (for_window)
+#Syntax:
+#for_window <criteria> command
+#Examples:
+for_window [class="XTerm"] floating enable
+for_window [class="urxvt"] border 1pixel
+for_window [title="x200: ~/work"] floating enable
+
+#4.11. Variables
+#Syntax:
+#set $name value
+#Example:
+set $m Mod1
+bindsym $m+Shift+r restart
+
+#4.12. Automatically putting clients on specific workspaces
+#Syntax:
+#assign <criteria> [→] workspace
+#Examples:
+assign [class="URxvt"] 2
+assign [class="^URxvt$"] 2
+assign [class="^URxvt$"] → 2
+assign [class="^URxvt$"] → work
+assign [class="^URxvt$" instance="^irssi$"] → 3
+
+#4.13. Automatically starting applications on i3 startup
+#Syntax:
+#exec [--no-startup-id] command
+#exec_always [--no-startup-id] command
+#Examples:
+exec chromium
+exec_always ~/my_script.sh
+exec --no-startup-id urxvt
+
+#4.14. Automatically putting workspaces on specific screens
+#Syntax:
+#workspace <workspace> output <output>
+#Examples:
+workspace 1 output LVDS1
+workspace 5 output VGA1
+workspace "2: vim" output VGA1
+
+#4.15. Changing colors
+#Syntax:
+#colorclass border background text indicator
+#Where colorclass can be one of:
+#client.focused, client.focused_inactive, client.unfocused, client.urgent
+#client.background
+#Examples (default colors):
+# class                 border  bg      text    indicator
+client.focused          #4c7899 #285577 #ffffff #2e9ef4
+client.focused_inactive #333333 #5f676a #ffffff #484e50
+client.unfocused        #333333 #222222 #888888 #292d2e
+client.urgent           #2f343a #900000 #ffffff #900000
+
+#4.16. Interprocess communication
+#Syntax
+#ipc-socket path_to_socket
+#Examples:
+ipc-socket ~/.i3/i3-ipc.sock
+
+#4.17. Focus follows mouse
+#Syntax:
+#focus_follows_mouse <yes|no>
+#Example:
+focus_follows_mouse no
+
+#4.18. Popups during fullscreen mode
+#Syntax:
+#popup_during_fullscreen <smart|ignore|leave_fullscreen>
+#Example:
+popup_during_fullscreen smart
+
+#4.19. Focus wrapping
+#Syntax:
+#force_focus_wrapping <yes|no>
+#Example:
+force_focus_wrapping yes
+
+#4.20. Forcing Xinerama
+#Syntax:
+#force_xinerama <yes|no>
+#Example:
+force_xinerama yes
+
+#4.21. Automatic back-and-forth when switching to the current workspace
+#Syntax:
+#workspace_auto_back_and_forth <yes|no>
+#Example:
+workspace_auto_back_and_forth yes
+
+#4.22. Delaying urgency hint reset on workspace change
+#Syntax:
+#force_display_urgency_hint <timeout> ms
+#Example:
+force_display_urgency_hint 500 ms
+
+# Chapter 5, Configuring i3bar
+#Syntax
+#bar {
+#    # i3bar commands
+#}
+#Example:
+bar {
+    status_command i3status
+}
+
+#5.1. i3bar command
+#Syntax:
+#i3bar_command command
+#Example:
+bar {
+    i3bar_command /home/user/bin/i3bar
+}
+
+#5.2. Statusline command
+#Syntax:
+#status_command command
+#Example:
+bar {
+    status_command i3status --config ~/.i3status.conf
+}
+
+#5.3. Display mode
+#Syntax:
+#mode <dock|hide|invisible>
+#hidden_state <hide|show>
+#modifier <Modifier>
+#Example:
+bar {
+    mode hide
+    modifier Mod1
+    hidden_state hide
+}
+
+#5.4. Bar ID
+#Syntax:
+#id <bar_id>
+#Example:
+bar {
+    id bar-1
+}
+
+#5.5. Position
+#Syntax:
+#position <top|bottom>
+#Example:
+bar {
+    position top
+}
+
+#5.6. Output(s)
+#Syntax:
+#output <output>
+#Example:
+# big monitor: everything
+bar {
+    # The display is connected either via HDMI or via DisplayPort
+    output HDMI2
+    output DP2
+    status_command i3status
+}
+
+# laptop monitor: bright colors and i3status with less modules.
+bar {
+    output LVDS1
+    status_command i3status --config ~/.i3status-small.conf
+    colors {
+        background #000000
+        statusline #ffffff
+    }
+}
+
+#5.7. Tray output
+#Syntax:
+#tray_output <none|primary|output>
+#Example:
+# disable system tray
+bar {
+    tray_output none
+}
+
+# show tray icons on the primary monitor
+tray_output primary
+
+# show tray icons on the big monitor
+bar {
+    tray_output HDMI2
+}
+
+#5.8. Font  (same as 4.2)
+#Syntax:
+#font <font>
+#Example:
+bar {
+    font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font pango:DejaVu Sans Mono 10
+}
+
+#5.9. Workspace buttons
+#Syntax:
+#workspace_buttons <yes|no>
+#Example:
+bar {
+    workspace_buttons no
+}
+
+#5.10. Colors
+#color sub-commands:
+# background
+# statusline
+# separator
+# focused_workspace
+# active_workspace
+# inactive_workspace
+# urgent_workspace
+#Syntax:
+#colors {
+#    background <color>
+#    statusline <color>
+#    separator <color>
+#    colorclass <border> <background> <text>
+#}
+#Example (default colors):
+bar {
+    colors {
+        background #000000
+        statusline #ffffff
+        separator #666666
+
+        focused_workspace  #4c7899 #285577 #ffffff
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #333333 #222222 #888888
+        urgent_workspace   #2f343a #900000 #ffffff
+    }
+}
+
+# Chapter 6, List of commands
+# command chaining using ;
+#bindsym $mod+x move container to workspace 3; workspace 3
+# scope of command changes using square brackets
+#Example:
+bindsym $mod+x [class="Firefox"] kill
+
+# same thing, but case-insensitive
+bindsym $mod+x [class="(?i)firefox"] kill
+#The criteria which are currently implemented are:
+#class
+#instance
+#window_role
+#id
+#title
+#urgent
+#con_mark
+#con_id
+#criteria class, instance, role, title and mark are regular expressions (PCRE). 
+
+#6.1. Executing applications (exec)
+#Syntax:
+#exec [--no-startup-id] command
+#Example:
+bindsym $mod+g exec gimp
+bindsym $mod+Return exec --no-startup-id urxvt
+
+#6.2. Splitting containers
+#Syntax:
+#split <vertical|horizontal>
+#Example:
+bindsym $mod+v split vertical
+bindsym $mod+h split horizontal
+
+#6.3. Manipulating layout
+#Syntax:
+#layout <default|tabbed|stacking|splitv|splith>
+#layout toggle [split|all]
+#Examples:
+bindsym $mod+s layout stacking
+bindsym $mod+l layout toggle split
+bindsym $mod+w layout tabbed
+bindsym $mod+x layout toggle
+bindsym $mod+x layout toggle all
+bindsym $mod+f fullscreen
+bindsym $mod+t floating toggle
+
+#6.4. Focusing/Moving containers
+#Syntax:
+#focus <left|right|down|up>
+#focus <parent|child|floating|tiling|mode_toggle>
+#focus output <<left|right|down|up>|output>
+#move <left|right|down|up> [<px> px]
+#move [absolute] position [[<px> px] [<px> px]|center]
+# Note that the amount of pixels you can specify for the move command is only
+# relevant for floating containers. The default amount is 10 pixels.
+#Examples:
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+u focus parent
+bindsym $mod+g focus mode_toggle
+bindsym $mod+x focus output right
+bindsym $mod+x focus output HDMI-2
+bindsym $mod+j move left
+bindsym $mod+k move down
+bindsym $mod+l move up
+bindsym $mod+semicolon move right
+bindsym $mod+j move left 20 px 10 px
+bindsym $mod+j move left 20 px 10 px
+bindsym $mod+c move absolute position center
+bindsym $mod+c move absolute position 10 px
+bindsym $mod+c move absolute position 10 px 10 px
+bindsym $mod+c move absolute position 10 px
+bindsym $mod+c move absolute position 10 px 20 px
+bindsym $mod+c move absolute position 10 px 20 px center
+bindsym $mod+c move absolute position 10 px 30 px 30 px 40 px
+
+#6.5. Changing (named) workspaces/moving to workspaces
+#Syntax:
+#workspace <next|prev|next_on_output|prev_on_output>
+#workspace back_and_forth
+#workspace <name>
+#workspace number <name>
+#move [window|container] [to] workspace <name>
+#move [window|container] [to] workspace number <name>
+#move [window|container] [to] workspace <prev|next|current>
+#Examples:
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth
+bindsym $mod+x move workspace to output right
+bindsym $mod+F1 [class="Firefox"] move workspace current
+
+#6.5.1. Named workspaces
+#Workspaces are identified by their name. So, instead of using numbers in the 
+#workspace command, you can use an arbitrary name:
+#Example:
+bindsym $mod+1 workspace mail
+bindsym $mod+1 workspace 1: mail
+bindsym $mod+2 workspace 2: www
+
+#6.5.2. Renaming workspaces
+#Syntax:
+#rename workspace <old_name> to <new_name>
+#rename workspace to <new_name>
+#Examples:
+rename workspace 5 to 6
+rename workspace 1 to 1: www
+rename workspace 1: www to 10: www
+workspace to 2: mail
+
+#6.6. Moving workspaces to a different screen
+# see section 6.7
+
+#6.7. Moving containers/workspaces to RandR outputs
+#Syntax:
+#move container to output <<left|right|down|up>|<output>>
+#move workspace to output <<left|right|down|up>|<output>>
+Examples:
+bindsym $mod+x move workspace to output right
+bindsym $mod+x move container to output VGA1
+
+#6.8. Resizing containers/windows
+#Syntax:
+#resize <grow|shrink> <direction> [<px> px [or <ppt> ppt]]
+#Example: Configuration file, defining a mode for resizing
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j           resize shrink width 10 px or 10 ppt
+        bindsym k           resize grow height 10 px or 10 ppt
+        bindsym l           resize shrink height 10 px or 10 ppt
+        bindsym semicolon   resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+# Enter resize mode
+bindsym $mod+r mode "resize"
+
+#6.9. Jumping to specific windows
+#Syntax:
+#[class="class"] focus
+#[title="title"] focus
+#Examples:
+bindsym $mod+a [title="VIM"] focus
+bindsym $mod+a [class="urxvt"] focus
+bindsym $mod+a [class="urxvt" title="VIM"] focus
+
+#6.10. VIM-like marks (mark/goto)
+#Syntax:
+#mark identifier
+#[con_mark="identifier"] focus
+#unmark identifier
+#Example (in a terminal):
+mark irssi
+[con_mark="irssi"] focus
+unmark irssi
+
+#6.11. Changing border style
+#Examples:
+bindsym $mod+t border normal
+bindsym $mod+y border 1pixel
+bindsym $mod+u border none
+
+#6.12. Enabling shared memory logging
+#Syntax:
+#shmlog <size_in_bytes>
+#shmlog <on|off|toggle>
+#Examples:
+bindsym $mod+x shmlog toggle
+
+#6.13. Enabling debug logging
+#Syntax:
+#debuglog <on|off|toggle>
+#Examples:
+bindsym $mod+x debuglog toggle
+
+#6.14. Reloading/Restarting/Exiting
+#Syntax:
+#restart
+#reload
+#exit
+#Examples:
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+w reload
+bindsym $mod+Shift+e exit
+
+#6.15. Scratchpad
+#Syntax:
+#move scratchpad
+#scratchpad show
+#Examples:
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym mod4+s [title="^Sup ::"] scratchpad show
+
+#6.16. i3bar control
+#Syntax:
+#bar hidden_state hide|show|toggle [<bar_id>]
+#bar mode dock|hide|invisible|toggle [<bar_id>]
+#Examples:
+bindsym $mod+m bar hidden_state toggle
+bindsym $mod+n bar mode toggle
+bindsym $mod+b bar mode hide bar-1
+bindsym $mod+Shift+b bar mode invisible bar-1
