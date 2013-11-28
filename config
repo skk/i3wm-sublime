@@ -29,7 +29,7 @@ bindsym $mod+Shift+r restart
 bindcode 214 exec --no-startup-id /home/michael/toggle_beamer.sh
 
 # Simulate ctrl+v upon pressing $mod+x
-bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+bindsym --release $mod+x exec xdotool key --clearmodifiers ctrl+v
 
 # Take a screenshot upon pressing $mod+x (select an area)
 bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
@@ -126,7 +126,7 @@ workspace "2: vim" output VGA1
 #client.focused, client.focused_inactive, client.unfocused, client.urgent
 #client.background
 #Examples (default colors):
-# class                 border  backgr. text    indicator
+# class                 border  bg      text    indicator
 client.focused          #4c7899 #285577 #ffffff #2e9ef4
 client.focused_inactive #333333 #5f676a #ffffff #484e50
 client.unfocused        #333333 #222222 #888888 #292d2e
@@ -484,7 +484,7 @@ bindsym $mod+a [class="urxvt" title="VIM"] focus
 #mark identifier
 #[con_mark="identifier"] focus
 #unmark identifier
-Example (in a terminal):
+#Example (in a terminal):
 mark irssi
 [con_mark="irssi"] focus
 unmark irssi
