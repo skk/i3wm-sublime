@@ -14,7 +14,7 @@
 
  -->
 
- # [i3 wm] Syntax Highlighting for Sublime Text 2/3
+# [i3 wm] Syntax Highlighting for Sublime Text 2/3
 
 ## Installation
 
