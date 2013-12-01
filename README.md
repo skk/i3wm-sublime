@@ -41,7 +41,7 @@ Next on my list is adding support for i3wm's status bar config file.
 
 ## License
 
-See LICENSE
+See LICENSE.txt
 
 ## Contact
 
