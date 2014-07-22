@@ -5,7 +5,6 @@ scopeName: source.i3wm_config
 fileTypes: [i3/config, config]
 uuid: bb9ebd33-1b88-4310-acef-41720bcac38f
 
-
 patterns:
 - name: criteria
   match: \[(.*)\]
@@ -14,10 +13,10 @@ patterns:
 
 # Chapter 4, Configuring i3
 - name: comment
-  match: ((#).*)
+  match: (\#)(.*)
   captures:
-    '1': {name: comment}
-    '2': {name: comment.source.i3wm_config}
+    '1': {name: comment.line.number-sign.i3wm_config}
+    '2': {name: comment.line.i3wm_config}
 
 - name: font_pango
   match: (font\ pango\:)\s*([- ,\w]*)
@@ -100,12 +99,21 @@ patterns:
     '3': {name: constant.string.i3wm_config}
 
 # set $mod Mod4
-- name: set
+- name: set1
   match: (set)\s*(\$\w*)\s*(\w*)
   captures:
     '1': {name: keyword.control.i3wm_config}
-    '2': {name: meta.scope.variable.other.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
     '3': {name: constant.language.i3wm_config}
+
+# set $mod #012345
+- name: set2
+  match: (set)\s*(\$\w*)\s*(#\w{6})
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: constant.other.i3wm_config}
+
 
 #assign <criteria> command
 - name: assign
@@ -133,44 +141,86 @@ patterns:
     '3': {name: constant.string.i3wm_config}
 
 # client.focused <color> <color> <color> <color>
-- name: client_focused
-  match: (client.focused)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
+- name: client_focused1
+  match: (client\.focused)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-    '3': {name: constant.string.i3wm_config}
-    '4': {name: constant.string.i3wm_config}
-    '5': {name: constant.string.i3wm_config}
+    '2': {name: constant.other.i3wm_config}
+    '3': {name: constant.other.i3wm_config}
+    '4': {name: constant.other.i3wm_config}
+    '5': {name: constant.other.i3wm_config}
+
+- name: client_focused2
+  match: (client\.focused)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
+
 
 # client.focused_inactive <color> <color> <color> <color>
-- name: client_focused_inactive
-  match: (client\.focused\_inactive)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
+- name: client_focused_inactive1
+  match: (client\.focused_inactive)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-    '3': {name: constant.string.i3wm_config}
-    '4': {name: constant.string.i3wm_config}
-    '5': {name: constant.string.i3wm_config}
+    '2': {name: constant.other.i3wm_config}
+    '3': {name: constant.other.i3wm_config}
+    '4': {name: constant.other.i3wm_config}
+    '5': {name: constant.other.i3wm_config}
+
+- name: client_focused_inactive2
+  match: (client\.focused_inactive)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
+
 
 # client.unfocused <color> <color> <color> <color>
-- name: client_unfocused
+- name: client_unfocused1
   match: (client\.unfocused)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-    '3': {name: constant.string.i3wm_config}
-    '4': {name: constant.string.i3wm_config}
-    '5': {name: constant.string.i3wm_config}
+    '2': {name: constant.other.i3wm_config}
+    '3': {name: constant.other.i3wm_config}
+    '4': {name: constant.other.i3wm_config}
+    '5': {name: constant.other.i3wm_config}
+
+- name: client_unfocused2
+  match: (client\.unfocused)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
 
 # client.urgent <color> <color> <color> <color>
-- name: client_urgent
+- name: client_urgent1
   match: (client\.urgent)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
-    '2': {name: constant.string.i3wm_config}
-    '3': {name: constant.string.i3wm_config}
-    '4': {name: constant.string.i3wm_config}
-    '5': {name: constant.string.i3wm_config}
+    '2': {name: constant.other.i3wm_config}
+    '3': {name: constant.other.i3wm_config}
+    '4': {name: constant.other.i3wm_config}
+    '5': {name: constant.other.i3wm_config}
+
+- name: client_urgent2
+  match: (client\.urgent)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
 
 # ipc-socket <path>
 - name: ipc_socket
@@ -320,27 +370,34 @@ patterns:
 
 # background <color>
 - name: background
-  match: (background)\s*(#\w{6})
+  match: (background)\s*([#$\w]*)
   captures:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: constant.language.i3wm_config}
 
 # statusline <color>
-- name: statusline
+- name: statusline1
   match: (statusline)\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: constant.language.i3wm_config}
 
+- name: statusline2
+  match: (statusline)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+
+
 # separator <color>
 - name: separator
-  match: (separator)\s*(#\w{6})
+  match: (separator)\s*([#$\w]*)
   captures:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: constant.language.i3wm_config}
 
 # focused_workspace <color> <color> <color>
-- name: focused_workspace
+- name: focused_workspace1
   match: (focused_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
@@ -349,8 +406,18 @@ patterns:
     '4': {name: constant.language.i3wm_config}
     '5': {name: constant.language.i3wm_config}
 
+- name: focused_workspace2
+  match: (focused_workspace)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
+
 # active_workspace <color> <color> <color>
-- name: active_workspace
+- name: active_workspace1
   match: (active_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
@@ -359,9 +426,19 @@ patterns:
     '4': {name: constant.language.i3wm_config}
     '5': {name: constant.language.i3wm_config}
 
+- name: active_workspace2
+  match: (active_workspace)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
+
 # inactive_workspace <color> <color> <color>
-- name: inactive_workspace
-  match: (inactive_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
+- name: inactive_workspace1
+  match: (inactive_workspace)\s*([#\$\w]*)\s*([#\$\w]*)\s*([#\$\w]*)
   captures:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: constant.language.i3wm_config}
@@ -369,8 +446,18 @@ patterns:
     '4': {name: constant.language.i3wm_config}
     '5': {name: constant.language.i3wm_config}
 
+- name: inactive_workspace2
+  match: (inactive_workspace)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
+
 # urgent_workspace <color> <color> <color>
-- name: urgent_workspace
+- name: urgent_workspace1
   match: (urgent_workspace)\s*(#\w{6})\s*(#\w{6})\s*(#\w{6})
   captures:
     '1': {name: keyword.control.i3wm_config}
@@ -378,6 +465,15 @@ patterns:
     '3': {name: constant.language.i3wm_config}
     '4': {name: constant.language.i3wm_config}
     '5': {name: constant.language.i3wm_config}
+
+- name: urgent_workspace2
+  match: (urgent_workspace)\s*(\$\w*)\s*(\$\w*)\s*(\$\w*)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: variable.other.i3wm_config}
+    '3': {name: variable.other.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
 
 # Chapter 6, List of commands
 
@@ -476,6 +572,7 @@ patterns:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: constant.language.i3wm_config}
 
+
 # rename workspace <old_name> to <new_name>
 # rename workspace to <new_name>
 - name: rename_workspace
@@ -506,21 +603,43 @@ patterns:
 # move workspace <name>
 # move workspace number <name>
 - name: move_workspace
-  match: (move)\s*(workspace)\s*(next|prev|next_on_output|prev_on_output|back_and_forth|(?:\w)*|(?:\d*\s*\w*))
+  match: (move)\s*(workspace)\s*(next|prev|next_on_output|prev_on_output|back_and_forth|(?:\w)*|(?:\d*\s*\w*))(\$\w*){0,1}
   captures:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: keyword.control.i3wm_config}
     '3': {name: constant.language.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
 
 # move [window|container] [to] workspace <name>
-# move [window|container] [to] workspace number <name>
-# move [window|container] [to] workspace <prev|next|current>
-- name: move__window_or_container
-  match: (move)\s*(window|container)\s*(to)?
+- name: move__window_or_container1
+  match: (move)\s*(window|container)\s*(to)?\s*(workspace)?\s*(\$\w*)
   captures:
     '1': {name: keyword.control.i3wm_config}
     '2': {name: keyword.control.i3wm_config}
     '3': {name: keyword.control.i3wm_config}
+    '4': {name: keyword.control.i3wm_config}
+    '5': {name: variable.other.i3wm_config}
+
+# move [window|container] [to] workspace number <name>
+- name: move__window_or_container2
+  match: (move)\s*(window|container)\s*(to)?\s*(workspace)?\s*(\d*)\s*(\$?\w*)?
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: keyword.control.i3wm_config}
+    '3': {name: keyword.control.i3wm_config}
+    '4': {name: variable.other.i3wm_config}
+    '5': {name: constant.numeric.i3wm_config}
+    '6': {name: variable.other.i3wm_config}
+
+# move [window|container] [to] workspace <prev|next|current>
+- name: move__window_or_container3
+  match: (move)\s*(window|container)\s*(to)?\s*(workspace)\s*(prev|next|current)
+  captures:
+    '1': {name: keyword.control.i3wm_config}
+    '2': {name: keyword.control.i3wm_config}
+    '3': {name: keyword.control.i3wm_config}
+    '4': {name: constant.language.i3wm_config}
+
 
 # resize_mode
 - name: resize_mode
